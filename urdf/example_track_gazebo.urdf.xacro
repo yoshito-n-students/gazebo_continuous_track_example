@@ -1,0 +1,187 @@
+<robot name="example_track" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- -->
+
+    <xacro:include filename="example_track.urdf.xacro" />
+
+    <!-- -->
+
+    <gazebo>
+
+        <link name="upper_segment_link">
+            <pose>-0.35 0 0.125 0 0 0</pose>
+            <inertial>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <iyy>0.01</iyy>
+                    <izz>0.01</izz>
+                </inertia>
+            </inertial>
+        </link>
+
+        <joint name="upper_segment_joint" type="prismatic">
+            <pose>0 0 0 0 0 0</pose>
+            <parent>body</parent>
+            <child>upper_segment_link</child>
+            <axis>
+                <xyz>1 0 0</xyz>
+                <use_parent_model_frame>0</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <link name="front_segment_link">
+            <pose>0.35 0 0.125 0 0 0</pose>
+            <inertial>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <iyy>0.01</iyy>
+                    <izz>0.01</izz>
+                </inertia>
+            </inertial>
+        </link>
+
+        <joint name="front_segment_joint" type="revolute">
+            <pose>0 0 -0.125 0 0 0</pose>
+            <parent>body</parent>
+            <child>front_segment_link</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+                <use_parent_model_frame>0</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <link name="lower_segment_link">
+            <pose>0.35 0 -0.125 0 ${pi} 0</pose>
+            <inertial>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <iyy>0.01</iyy>
+                    <izz>0.01</izz>
+                </inertia>
+            </inertial>
+        </link>
+
+        <joint name="lower_segment_joint" type="prismatic">
+            <pose>0 0 0 0 0 0</pose>
+            <parent>body</parent>
+            <child>lower_segment_link</child>
+            <axis>
+                <xyz>1 0 0</xyz>
+                <use_parent_model_frame>0</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <link name="rear_segment_link">
+            <pose>-0.35 0 -0.125 0 ${pi} 0</pose>
+            <inertial>
+                <mass>0.1</mass>
+                <inertia>
+                    <ixx>0.01</ixx>
+                    <iyy>0.01</iyy>
+                    <izz>0.01</izz>
+                </inertia>
+            </inertial>
+        </link>
+
+        <joint name="rear_segment_joint" type="revolute">
+            <pose>0 0 -0.125 0 0 0</pose>
+            <parent>body</parent>
+            <child>rear_segment_link</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+                <use_parent_model_frame>0</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <plugin name="continuous_track" filename="libContinuousTrack.so">
+            <!-- -->
+            <sprocket>
+                <joint>sprocket_axle</joint>
+                <pitch_diameter>0.24</pitch_diameter>
+            </sprocket>
+            <!-- -->
+            <trajectory>
+                <segment>
+                    <joint>upper_segment_joint</joint>
+                    <end_position>0.7</end_position>
+                </segment>
+                <segment>
+                    <joint>front_segment_joint</joint>
+                    <end_position>${pi}</end_position>
+                </segment>
+                <segment>
+                    <joint>lower_segment_joint</joint>
+                    <end_position>0.7</end_position>
+                </segment>
+                <segment>
+                    <joint>rear_segment_joint</joint>
+                    <end_position>${pi}</end_position>
+                </segment>
+            </trajectory>
+            <!-- -->
+            <pattern>
+                <elements_per_round>60</elements_per_round>
+                <element>
+                    <collision name="collision">
+                        <pose>0 0 0.01 0 0 0</pose>
+                        <geometry>
+                            <box>
+                                <size>0.06 0.2 0.02</size>
+                            </box>
+                        </geometry>
+                    </collision>
+                    <visual name="visual">
+                        <pose>0 0 0.01 0 0 0</pose>
+                        <geometry>
+                            <box>
+                                <size>0.06 0.2 0.02</size>
+                            </box>
+                        </geometry>
+                        <material>
+                            <ambient>0.1 0.1 0.1 1</ambient>
+                            <diffuse>0.2 0.2 0.2 1</diffuse>
+                            <specular>0 0 0 1</specular>
+                            <emissive>0 0 0 1</emissive>
+                        </material>
+                    </visual>
+                </element>
+                <element>
+                    <collision name="collision">
+                        <pose>0 0 0.02 0 0 0</pose>
+                        <geometry>
+                            <box>
+                                <size>0.02 0.2 0.04</size>
+                            </box>
+                        </geometry>
+                    </collision>
+                    <visual name="visual">
+                        <pose>0 0 0.02 0 0 0</pose>
+                        <geometry>
+                            <box>
+                                <size>0.02 0.2 0.04</size>
+                            </box>
+                        </geometry>
+                        <material>
+                            <ambient>0.1 0.1 0.1 1</ambient>
+                            <diffuse>0.2 0.2 0.2 1</diffuse>
+                            <specular>0 0 0 1</specular>
+                            <emissive>0 0 0 1</emissive>
+                        </material>
+                    </visual>
+                </element>
+            </pattern>
+        </plugin>
+
+        <!-- ros_control for gazebo -->
+
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+            <legacyModeNS>false</legacyModeNS>
+        </plugin>
+
+    </gazebo>
+
+</robot>
