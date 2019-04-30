@@ -47,5 +47,11 @@ qtcreator-*
 # Emacs
 .#*
 
+# VSCode
+.vscode/
+
 # Catkin custom files
 CATKIN_IGNORE
+
+# Gazebo models
+model/
