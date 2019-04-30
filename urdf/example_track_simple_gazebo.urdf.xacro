@@ -2,50 +2,20 @@
 
     <!-- -->
 
+    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_track_simple_gazebo.urdf.xacro" />
     <xacro:include filename="example_track.urdf.xacro" />
-    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_populate_gazebo.urdf.xacro" />
 
     <!-- -->
 
-    <xacro:populate_wheels name_prefix="track_wheel" x="0.35" dx="-0.70" dpitch="${pi}" mass="0.1" length="0.2" radius="0.125" count="2" />
-    <xacro:populate_axles name_prefix="track_axle" parent="body" child_prefix="track_wheel" count="2"/>
-    <xacro:populate_boards name_prefix="track_board" z="0.12" dz="-0.24" dpitch="${pi}" mass="0.1" size_x="0.7" size_y="0.2" size_z="0.01" count="2" />
-    <xacro:populate_sliders name_prefix="track_slider" parent="body" child_prefix="track_board" count="2"/>
+    <xacro:make_track_simple name="track" mass="0.4" length="0.7" radius="0.125" width="0.2" parent="body" sprocket="sprocket_axle" pitch_diameter="0.24" />
+
+    <!-- ros_control for gazebo -->
 
     <gazebo>
-
-        <plugin name="continuous_track_simple" filename="libContinuousTrackSimple.so">
-            <!-- -->
-            <sprocket>
-                <joint>sprocket_axle</joint>
-                <pitch_diameter>0.24</pitch_diameter>
-            </sprocket>
-            <!-- -->
-            <track>
-                <segment>
-                    <joint>track_slider1</joint>
-                </segment>
-                <segment>
-                    <joint>track_axle1</joint>
-                    <pitch_diameter>0.24</pitch_diameter>
-                </segment>
-                <segment>
-                    <joint>track_slider2</joint>
-                </segment>
-                <segment>
-                    <joint>track_axle2</joint>
-                    <pitch_diameter>0.24</pitch_diameter>
-                </segment>
-            </track>
-        </plugin>
-
-        <!-- ros_control for gazebo -->
-
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             <legacyModeNS>false</legacyModeNS>
         </plugin>
-
     </gazebo>
 
 </robot>
