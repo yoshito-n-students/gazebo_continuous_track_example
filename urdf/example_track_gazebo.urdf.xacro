@@ -2,6 +2,7 @@
 
     <!-- -->
 
+    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_gazebo.urdf.xacro" />
     <xacro:include filename="example_track.urdf.xacro" />
 
     <!-- -->
@@ -10,14 +11,7 @@
 
         <link name="upper_segment_link">
             <pose>-0.35 0 0.125 0 0 0</pose>
-            <inertial>
-                <mass>0.1</mass>
-                <inertia>
-                    <ixx>0.01</ixx>
-                    <iyy>0.01</iyy>
-                    <izz>0.01</izz>
-                </inertia>
-            </inertial>
+            <xacro:make_box_inertial pose="0.35 0 0 0 0 0" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" />
         </link>
 
         <joint name="upper_segment_joint" type="prismatic">
@@ -32,14 +26,7 @@
 
         <link name="front_segment_link">
             <pose>0.35 0 0.125 0 0 0</pose>
-            <inertial>
-                <mass>0.1</mass>
-                <inertia>
-                    <ixx>0.01</ixx>
-                    <iyy>0.01</iyy>
-                    <izz>0.01</izz>
-                </inertia>
-            </inertial>
+            <xacro:make_cylinder_inertial pose="0 0 -0.125 ${pi / 2} 0 0" mass="0.1" length="0.5" radius="0.125" />
         </link>
 
         <joint name="front_segment_joint" type="revolute">
@@ -54,14 +41,7 @@
 
         <link name="lower_segment_link">
             <pose>0.35 0 -0.125 0 ${pi} 0</pose>
-            <inertial>
-                <mass>0.1</mass>
-                <inertia>
-                    <ixx>0.01</ixx>
-                    <iyy>0.01</iyy>
-                    <izz>0.01</izz>
-                </inertia>
-            </inertial>
+            <xacro:make_box_inertial pose="0.35 0 0 0 0 0" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" />
         </link>
 
         <joint name="lower_segment_joint" type="prismatic">
@@ -76,14 +56,7 @@
 
         <link name="rear_segment_link">
             <pose>-0.35 0 -0.125 0 ${pi} 0</pose>
-            <inertial>
-                <mass>0.1</mass>
-                <inertia>
-                    <ixx>0.01</ixx>
-                    <iyy>0.01</iyy>
-                    <izz>0.01</izz>
-                </inertia>
-            </inertial>
+            <xacro:make_cylinder_inertial pose="0 0 -0.125 ${pi / 2} 0 0" mass="0.1" length="0.5" radius="0.125" />
         </link>
 
         <joint name="rear_segment_joint" type="revolute">
@@ -95,6 +68,15 @@
                 <use_parent_model_frame>0</use_parent_model_frame>
             </axis>
         </joint>
+
+        <xacro:property name="element_material">
+            <material>
+                <ambient>0.1 0.1 0.1 1</ambient>
+                <diffuse>0.2 0.2 0.2 1</diffuse>
+                <specular>0 0 0 1</specular>
+                <emissive>0 0 0 1</emissive>
+            </material>
+        </xacro:property>
 
         <plugin name="continuous_track" filename="libContinuousTrack.so">
             <!-- -->
@@ -123,54 +105,18 @@
             </trajectory>
             <!-- -->
             <pattern>
-                <elements_per_round>60</elements_per_round>
+                <elements_per_round>80</elements_per_round>
                 <element>
-                    <collision name="collision">
-                        <pose>0 0 0.01 0 0 0</pose>
-                        <geometry>
-                            <box>
-                                <size>0.06 0.2 0.02</size>
-                            </box>
-                        </geometry>
-                    </collision>
-                    <visual name="visual">
-                        <pose>0 0 0.01 0 0 0</pose>
-                        <geometry>
-                            <box>
-                                <size>0.06 0.2 0.02</size>
-                            </box>
-                        </geometry>
-                        <material>
-                            <ambient>0.1 0.1 0.1 1</ambient>
-                            <diffuse>0.2 0.2 0.2 1</diffuse>
-                            <specular>0 0 0 1</specular>
-                            <emissive>0 0 0 1</emissive>
-                        </material>
-                    </visual>
+                    <xacro:make_box_collision pose="0 0 0.01 0 0 0" size="0.05 0.5 0.02" />
+                    <xacro:make_box_visual pose="0 0 0.01 0 0 0" size="0.05 0.5 0.02">
+                        <xacro:insert_block name="element_material" />
+                    </xacro:make_box_visual>
                 </element>
                 <element>
-                    <collision name="collision">
-                        <pose>0 0 0.02 0 0 0</pose>
-                        <geometry>
-                            <box>
-                                <size>0.02 0.2 0.04</size>
-                            </box>
-                        </geometry>
-                    </collision>
-                    <visual name="visual">
-                        <pose>0 0 0.02 0 0 0</pose>
-                        <geometry>
-                            <box>
-                                <size>0.02 0.2 0.04</size>
-                            </box>
-                        </geometry>
-                        <material>
-                            <ambient>0.1 0.1 0.1 1</ambient>
-                            <diffuse>0.2 0.2 0.2 1</diffuse>
-                            <specular>0 0 0 1</specular>
-                            <emissive>0 0 0 1</emissive>
-                        </material>
-                    </visual>
+                    <xacro:make_box_collision pose="0 0 0.02 0 0 0" size="0.02 0.5 0.04" />
+                    <xacro:make_box_visual pose="0 0 0.02 0 0 0" size="0.02 0.5 0.04">
+                        <xacro:insert_block name="element_material" />
+                    </xacro:make_box_visual>
                 </element>
             </pattern>
         </plugin>
