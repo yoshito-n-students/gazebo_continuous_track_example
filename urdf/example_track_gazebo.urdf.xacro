@@ -2,72 +2,17 @@
 
     <!-- -->
 
-    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_gazebo.urdf.xacro" />
+    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_trajectory_gazebo.urdf.xacro" />
     <xacro:include filename="example_track.urdf.xacro" />
 
     <!-- -->
 
+    <xacro:make_straight_segment name_prefix="upper_segment" x="-0.35" z="0.125" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" parent="body" />
+    <xacro:make_arc_segment name_prefix="front_segment" x="0.35" z="0.125" mass="0.1" length="0.5" radius="0.125" parent="body" />
+    <xacro:make_straight_segment name_prefix="lower_segment" x="0.35" z="-0.125" pitch="${pi}" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" parent="body" />
+    <xacro:make_arc_segment name_prefix="rear_segment" x="-0.35" z="-0.125" pitch="${pi}" mass="0.1" length="0.5" radius="0.125" parent="body" />
+
     <gazebo>
-
-        <link name="upper_segment_link">
-            <pose>-0.35 0 0.125 0 0 0</pose>
-            <xacro:make_box_inertial pose="0.35 0 0 0 0 0" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" />
-        </link>
-
-        <joint name="upper_segment_joint" type="prismatic">
-            <pose>0 0 0 0 0 0</pose>
-            <parent>body</parent>
-            <child>upper_segment_link</child>
-            <axis>
-                <xyz>1 0 0</xyz>
-                <use_parent_model_frame>0</use_parent_model_frame>
-            </axis>
-        </joint>
-
-        <link name="front_segment_link">
-            <pose>0.35 0 0.125 0 0 0</pose>
-            <xacro:make_cylinder_inertial pose="0 0 -0.125 ${pi / 2} 0 0" mass="0.1" length="0.5" radius="0.125" />
-        </link>
-
-        <joint name="front_segment_joint" type="revolute">
-            <pose>0 0 -0.125 0 0 0</pose>
-            <parent>body</parent>
-            <child>front_segment_link</child>
-            <axis>
-                <xyz>0 1 0</xyz>
-                <use_parent_model_frame>0</use_parent_model_frame>
-            </axis>
-        </joint>
-
-        <link name="lower_segment_link">
-            <pose>0.35 0 -0.125 0 ${pi} 0</pose>
-            <xacro:make_box_inertial pose="0.35 0 0 0 0 0" mass="0.1" size_x="0.7" size_y="0.5" size_z="0.2" />
-        </link>
-
-        <joint name="lower_segment_joint" type="prismatic">
-            <pose>0 0 0 0 0 0</pose>
-            <parent>body</parent>
-            <child>lower_segment_link</child>
-            <axis>
-                <xyz>1 0 0</xyz>
-                <use_parent_model_frame>0</use_parent_model_frame>
-            </axis>
-        </joint>
-
-        <link name="rear_segment_link">
-            <pose>-0.35 0 -0.125 0 ${pi} 0</pose>
-            <xacro:make_cylinder_inertial pose="0 0 -0.125 ${pi / 2} 0 0" mass="0.1" length="0.5" radius="0.125" />
-        </link>
-
-        <joint name="rear_segment_joint" type="revolute">
-            <pose>0 0 -0.125 0 0 0</pose>
-            <parent>body</parent>
-            <child>rear_segment_link</child>
-            <axis>
-                <xyz>0 1 0</xyz>
-                <use_parent_model_frame>0</use_parent_model_frame>
-            </axis>
-        </joint>
 
         <xacro:property name="element_material">
             <material>

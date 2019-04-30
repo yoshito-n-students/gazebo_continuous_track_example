@@ -3,10 +3,7 @@
     <!-- -->
 
     <xacro:include filename="example_track.urdf.xacro" />
-
-    <!-- -->
-
-    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_gazebo.urdf.xacro" />
+    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_populate_gazebo.urdf.xacro" />
 
     <!-- -->
 
