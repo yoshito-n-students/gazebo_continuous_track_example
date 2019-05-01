@@ -7,14 +7,14 @@
 
     <!-- -->
 
-    <xacro:make_track_simple_v name="track" mass="0.4" length="0.7" radius="0.125" width="0.5" parent="body" sprocket_joint="sprocket_axle" pitch_diameter="0.24">
+    <xacro:make_track_simple name="track" mass="0.4" length="0.7" radius="0.125" width="0.5" parent="body" sprocket_joint="sprocket_axle" pitch_diameter="0.24">
         <material>
             <ambient>0.1 0.1 0.1 1</ambient>
             <diffuse>0.2 0.2 0.2 1</diffuse>
             <specular>0 0 0 1</specular>
             <emissive>0 0 0 1</emissive>
         </material>
-    </xacro:make_track_simple_v>
+    </xacro:make_track_simple>
 
     <!-- ros_control for gazebo -->
 
