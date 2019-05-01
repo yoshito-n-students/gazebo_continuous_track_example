@@ -29,11 +29,11 @@
     </xacro:macro>
 
     <link name="body">
-        <xacro:make_body_inertia mass="1" size_x="0.5" size_y="0.2" size_z="0.2" />
+        <xacro:make_body_inertia mass="1" size_x="0.5" size_y="0.5" size_z="0.2" />
 
         <visual>
             <geometry>
-                <box size="0.5 0.2 0.2" />
+                <box size="0.5 0.5 0.2" />
             </geometry>
             <material name="red">
                 <color rgba="0.7 0.0 0.0 1.0" />
@@ -42,18 +42,18 @@
 
         <collision>
             <geometry>
-                <box size="0.5 0.2 0.2" />
+                <box size="0.5 0.5 0.2" />
             </geometry>
         </collision>
     </link>
 
     <link name="sprocket">
-        <xacro:make_sprocket_inertia mass="0.2" radius="0.1" length="0.2" />
+        <xacro:make_sprocket_inertia mass="0.2" radius="0.1" length="0.5" />
 
         <visual>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.2" />
+                <cylinder radius="0.1" length="0.5" />
             </geometry>
             <material name="grey">
                 <color rgba="0.5 0.5 0.5 1.0" />
@@ -63,13 +63,13 @@
         <collision>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.2" />
+                <cylinder radius="0.1" length="0.5" />
             </geometry>
         </collision>
     </link>
 
     <joint name="sprocket_axle" type="continuous">
-        <origin xyz="0.35 0 0" rpy="0 0 0" />
+        <origin xyz="0.375 0 0" rpy="0 0 0" />
         <parent link="body" />
         <child link="sprocket" />
         <axis xyz="0 1 0" />
