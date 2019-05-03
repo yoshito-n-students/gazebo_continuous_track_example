@@ -192,6 +192,7 @@ endfunction(generate_gazebo_model)
 
 generate_gazebo_model(example_track)
 generate_gazebo_model(example_track_simple)
+generate_gazebo_model(example_track_simple_wheels)
 
 #############
 ## Install ##
