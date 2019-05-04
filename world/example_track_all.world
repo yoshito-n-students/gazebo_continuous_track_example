@@ -36,7 +36,73 @@
                 <child>example_track_simple_wheels::body</child>
             </joint>
         </model>
-        <!-->
+                                                                                <!-->
+
+        <!-- -->
+
+        <model name="obstacles">
+            <static>1</static>
+            <link name="rump">
+                <pose>1.0 0 0 0 0 0</pose>
+                <inertial>
+                    <mass>100</mass>
+                    <inertia>
+                        <ixx>1</ixx>
+                        <iyy>1</iyy>
+                        <izz>1</izz>
+                    </inertia>
+                </inertial>
+                <collision name="collision">
+                    <pose>0 1.5 0 1.5708 0 0</pose>
+                    <geometry>
+                        <polyline>
+                            <point>-0.1 0.0</point>
+                            <point>0.1 0.0</point>
+                            <point>0.0 0.1</point>
+                            <height>3</height>
+                        </polyline>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <pose>0 1.5 0.0 1.5708 0 0</pose>
+                    <geometry>
+                        <polyline>
+                            <point>-0.1 0.0</point>
+                            <point>0.1 0.0</point>
+                            <point>0.0 0.1</point>
+                            <height>3</height>
+                        </polyline>
+                    </geometry>
+                </visual>
+            </link>
+            <link name="step">
+                <pose>3.0 0 0 0 0 0</pose>
+                <inertial>
+                    <mass>100</mass>
+                    <inertia>
+                        <ixx>1</ixx>
+                        <iyy>1</iyy>
+                        <izz>1</izz>
+                    </inertia>
+                </inertial>
+                <collision name="collision">
+                    <pose>0 0 0.05 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>1.0 3.0 0.13</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <pose>0 0 0.05 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>1.0 3.0 0.13</size>
+                        </box>
+                    </geometry>
+                </visual>
+            </link>
+        </model>
 
         <!-- camera angle -->
         <gui fullscreen='0'>

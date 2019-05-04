@@ -17,6 +17,11 @@
         <arg name="headless" value="$(arg headless)" />
     </include>
 
+    <!-- Drive all by one command -->
+    <node name="cmd_relay" pkg="topic_tools" type="relay" args="/cmd_vel /example_track/sprocket_velocity_controller/command" output="screen" />
+    <node name="cmd_relay2" pkg="topic_tools" type="relay" args="/cmd_vel /example_track_simple/sprocket_velocity_controller/command" output="screen" />
+    <node name="cmd_relay3" pkg="topic_tools" type="relay" args="/cmd_vel /example_track_simple_wheels/sprocket_velocity_controller/command" output="screen" />
+
     <group ns="example_track">
 
         <!-- Load the URDF into the ROS Parameter Server -->
