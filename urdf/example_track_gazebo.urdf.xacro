@@ -20,12 +20,12 @@
         <pattern>
             <elements_per_round>80</elements_per_round>
             <element>
-                <xacro:make_box_element pose="0 0 -0.02 0 0 0" size="0.035 0.5 0.01">
+                <xacro:make_box_element pose="0 0 -0.02 0 0 0" size="0.035 0.5 0.02">
                     <xacro:insert_block name="element_material" />
                 </xacro:make_box_element>
             </element>
             <element>
-                <xacro:make_box_element pose="0 0 -0.01 0 0 0" size="0.02 0.5 0.03">
+                <xacro:make_box_element pose="0 0 -0.015 0 0 0" size="0.02 0.5 0.03">
                     <xacro:insert_block name="element_material" />
                 </xacro:make_box_element>
             </element>
