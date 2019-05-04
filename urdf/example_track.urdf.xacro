@@ -47,7 +47,7 @@
     <!-- sprocket driving the track -->
 
     <link name="sprocket">
-        <xacro:make_wheel_inertia mass="0.2" radius="0.1" length="0.51" />
+        <xacro:make_wheel_inertia mass="0.2" radius="0.08" length="0.51" />
 
         <visual>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
@@ -74,7 +74,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.51" />
+                <cylinder radius="0.08" length="0.51" />
             </geometry>
         </collision>
     </link>
@@ -99,12 +99,12 @@
     <!-- idler on the other side of the sprocket -->
 
     <link name="idler">
-        <xacro:make_wheel_inertia mass="0.2" radius="0.1" length="0.51" />
+        <xacro:make_wheel_inertia mass="0.2" radius="0.08" length="0.51" />
 
         <visual>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.51" />
+                <cylinder radius="0.08" length="0.51" />
             </geometry>
             <material name="grey" />
         </visual>
@@ -112,7 +112,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.51" />
+                <cylinder radius="0.08" length="0.51" />
             </geometry>
         </collision>
     </link>
