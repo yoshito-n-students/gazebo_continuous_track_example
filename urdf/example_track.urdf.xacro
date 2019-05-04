@@ -52,11 +52,23 @@
         <visual>
             <origin xyz="0 0 0" rpy="${pi / 2} 0 0" />
             <geometry>
-                <cylinder radius="0.1" length="0.51" />
+                <cylinder radius="0.08" length="0.51" />
             </geometry>
             <material name="grey">
                 <color rgba="0.5 0.5 0.5 1.0" />
             </material>
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.01 0.51 0.20" />
+            </geometry>
+            <material name="grey" />
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.20 0.51 0.01" />
+            </geometry>
+            <material name="grey" />
         </visual>
 
         <collision>
@@ -94,9 +106,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.51" />
             </geometry>
-            <material name="grey">
-                <color rgba="0.5 0.5 0.5 1.0" />
-            </material>
+            <material name="grey" />
         </visual>
 
         <collision>
