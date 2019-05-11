@@ -7,7 +7,7 @@
 
     <!-- -->
 
-    <xacro:property name="element_material">
+    <xacro:property name="track_material">
         <material>
             <ambient>0.1 0.1 0.1 1</ambient>
             <diffuse>0.2 0.2 0.2 1</diffuse>
@@ -16,17 +16,13 @@
         </material>
     </xacro:property>
 
-    <xacro:make_track name="track" mass="0.4" length="0.7" radius="0.125" width="0.5" parent="body" sprocket_joint="sprocket_axle" pitch_diameter="0.24">
+    <xacro:make_track name="track" mass="0.4" length="0.7" radius="0.115" width="0.5" parent="body" sprocket_joint="sprocket_axle" pitch_diameter="0.24">
+        <xacro:insert_block name="track_material" />
         <pattern>
-            <elements_per_round>80</elements_per_round>
+            <elements_per_round>40</elements_per_round>
             <element>
-                <xacro:make_box_element pose="0 0 -0.02 0 0 0" size="0.035 0.5 0.02">
-                    <xacro:insert_block name="element_material" />
-                </xacro:make_box_element>
-            </element>
-            <element>
-                <xacro:make_box_element pose="0 0 -0.015 0 0 0" size="0.02 0.5 0.03">
-                    <xacro:insert_block name="element_material" />
+                <xacro:make_box_element pose="0 0 0 0 0 0" size="0.02 0.5 0.02">
+                    <xacro:insert_block name="track_material" />
                 </xacro:make_box_element>
             </element>
         </pattern>
