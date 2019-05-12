@@ -25,6 +25,18 @@
                     <xacro:insert_block name="track_material" />
                 </xacro:make_box_element>
             </element>
+            <element>
+                <xacro:make_polyline_element pose="0 0.25 0 ${pi / 2} 0 0">
+                    <polyline>
+                        <point>-0.02 -0.01</point>
+                        <point>-0.01 0.01</point>
+                        <point>0.01 0.01</point>
+                        <point>0.02 -0.01</point>
+                        <height>0.5</height>
+                    </polyline>
+                    <xacro:insert_block name="track_material" />
+                </xacro:make_polyline_element>
+            </element>
         </pattern>
     </xacro:make_track>
 
