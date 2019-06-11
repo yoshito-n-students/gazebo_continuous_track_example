@@ -12,7 +12,7 @@
 
         <!-- Example track -->
         <include>
-            <uri>model://example_track_simple</uri>
+            <uri>model://example_lugged_wheel</uri>
             <pose>0 0 0.3 0 0 0</pose>
         </include>
 
@@ -21,7 +21,7 @@
         <model name="anchor">
             <joint name="world_to_track" type="fixed">
                 <parent>world</parent>
-                <child>example_track_simple::body</child>
+                <child>example_track::body</child>
             </joint>
         </model>
         <!-->

@@ -6,7 +6,7 @@
     <!--     * a sprocket to drive the track                                         -->
     <!--     * an axle and actuator for the sprocket                                 -->
     <!--     * an idler wheel on the other side of the sprocket                      -->
-    <!-- Other entities specialized for Gazebo are defined in example_gazebo.urdf .  -->
+    <!-- Other entities specialized for Gazebo are defined in *_gazebo.urdf.xacro .  -->
 
     <xacro:macro name="make_box_inertia" params="mass size_x size_y size_z">
         <inertial>
@@ -32,9 +32,6 @@
             <geometry>
                 <box size="0.5 0.51 0.2" />
             </geometry>
-            <material name="red">
-                <color rgba="0.7 0.0 0.0 1.0" />
-            </material>
         </visual>
 
         <collision>
@@ -54,21 +51,16 @@
             <geometry>
                 <cylinder radius="0.08" length="0.51" />
             </geometry>
-            <material name="grey">
-                <color rgba="0.5 0.5 0.5 1.0" />
-            </material>
         </visual>
         <visual>
             <geometry>
                 <box size="0.01 0.51 0.20" />
             </geometry>
-            <material name="grey" />
         </visual>
         <visual>
             <geometry>
                 <box size="0.20 0.51 0.01" />
             </geometry>
-            <material name="grey" />
         </visual>
 
         <collision>
@@ -106,7 +98,6 @@
             <geometry>
                 <cylinder radius="0.08" length="0.51" />
             </geometry>
-            <material name="grey" />
         </visual>
 
         <collision>
