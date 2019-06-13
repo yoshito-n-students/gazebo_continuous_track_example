@@ -190,6 +190,7 @@ function(generate_gazebo_model name)
   )
 endfunction(generate_gazebo_model)
 
+generate_gazebo_model(example_conveyor)
 generate_gazebo_model(example_lugged_wheel)
 generate_gazebo_model(example_track)
 generate_gazebo_model(example_track_simple)

@@ -1,0 +1,74 @@
+<robot name="example_conveyor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- -->
+
+    <xacro:include filename="$(find gazebo_continuous_track)/urdf/macros_track_gazebo.urdf.xacro" />
+    <xacro:include filename="example_conveyor.urdf.xacro" />
+
+    <!-- -->
+
+    <xacro:property name="belt_material">
+        <material>
+            <ambient>0.1 0.1 0.6 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <specular>0 0 0 1</specular>
+            <emissive>0 0 0 1</emissive>
+        </material>
+    </xacro:property>
+    <xacro:property name="box_material">
+        <material>
+            <ambient>0.7 0.3 0.0 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <specular>0 0 0 1</specular>
+            <emissive>0 0 0 1</emissive>
+        </material>
+    </xacro:property>
+
+    <xacro:populate_straight_segments name_prefix="belt" x="-2.5" y="0" z="0.15" mass="5" size_x="5" size_y="0.5" size_z="0.1" parent="body" count="1">
+        <xacro:insert_block name="belt_material" />
+    </xacro:populate_straight_segments>
+
+    <gazebo>
+        <plugin name="conveyor" filename="libContinuousTrack.so">
+            <sprocket>
+                <joint>sprocket_axle</joint>
+                <pitch_diameter>0.24</pitch_diameter>
+            </sprocket>
+            <trajectory>
+                <segment>
+                    <joint>belt_joint0</joint>
+                    <end_position>5</end_position>
+                </segment>
+            </trajectory>
+            <pattern>
+                <elements_per_round>20</elements_per_round>
+                <element>
+                    <xacro:make_box_element pose="0 0 0.02 0 0 0" size="0.02 0.5 0.05">
+                        <xacro:insert_block name="belt_material" />
+                    </xacro:make_box_element>
+                </element>
+                <element>
+                    <xacro:make_box_element pose="0 -0.25 0.02 0 0 0" size="0.5 0.02 0.05">
+                        <xacro:insert_block name="belt_material" />
+                    </xacro:make_box_element>
+                    <xacro:make_box_element pose="0 0.25 0.02 0 0 0" size="0.5 0.02 0.05">
+                        <xacro:insert_block name="belt_material" />
+                    </xacro:make_box_element>
+                    <xacro:make_box_element pose="0 0 0.05 0 0 ${pi / 6}" size="0.2 0.2 0.1">
+                        <xacro:insert_block name="box_material" />
+                    </xacro:make_box_element>
+                </element>
+            </pattern>
+        </plugin>
+    </gazebo>
+
+    <!-- ros_control for gazebo -->
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+            <legacyModeNS>false</legacyModeNS>
+        </plugin>
+    </gazebo>
+
+</robot>

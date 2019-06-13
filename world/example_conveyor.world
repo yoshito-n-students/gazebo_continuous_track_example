@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+    <world name="default">
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+
+        <!-- Global light source -->
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <!-- Example track -->
+        <include>
+            <uri>model://example_conveyor</uri>
+            <pose>0 0 0.3 0 0 0</pose>
+        </include>
+
+        <!-- Gestalt -->
+        <include>
+            <uri>model://gestalt</uri>
+            <pose>0 0.4 0.5 0 0 -1.5708</pose>
+        </include>
+
+        <!-- Initial positions of Gestalt's joints -->
+        <plugin name="initial_gestalt_configuration" filename="libInitialModelConfiguration.so">
+            <model>gestalt</model>
+            <joint>
+                <name>joint2</name>
+                <position>-1.1</position>
+            </joint>
+            <joint>
+                <name>joint3</name>
+                <position>2.3</position>
+            </joint>
+            <joint>
+                <name>joint5</name>
+                <position>1.0</position>
+            </joint>
+        </plugin>
+
+        <!-- Rigid anchor for the track -->
+        <model name="anchor">
+            <joint name="world_to_conveyor" type="fixed">
+                <parent>world</parent>
+                <child>example_conveyor::body</child>
+            </joint>
+            <joint name="world_to_gestalt" type="fixed">
+                <parent>world</parent>
+                <child>gestalt::base_link</child>
+            </joint>
+        </model>
+
+        <!-- camera angle -->
+        <gui fullscreen='0'>
+            <camera name='user_camera'>
+                <pose>2.0 -1.5 1.0 0.0 0.3 2.45</pose>
+                <view_controller>orbit</view_controller>
+            </camera>
+        </gui>
+    </world>
+</sdf>
