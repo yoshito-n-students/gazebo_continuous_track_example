@@ -2,6 +2,10 @@
 Changelog for package gazebo_continuous_track_example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.3 (2019-09-26)
+------------------
+* Add README
+
 0.0.2 (2019-06-11)
 ------------------
 * Add an example of lugged-wheel rover
