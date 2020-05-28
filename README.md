@@ -2,6 +2,7 @@
 
 ## What's this?
 Example of a realtime continuous track simulation for the Gazebo simulator & ROS. The blue and green ones are based on the proposed method with or without grousers. The red one is based on a conventional method by multiple wheels.
+
 [![YouTube thumbnail](https://img.youtube.com/vi/0bPqNbOKPuQ/0.jpg)](https://www.youtube.com/watch?v=0bPqNbOKPuQ)
 
 ## Citation
