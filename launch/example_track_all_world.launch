@@ -25,7 +25,7 @@
     <group ns="example_track">
 
         <!-- Load the URDF into the ROS Parameter Server -->
-        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf/example_track.urdf.xacro'" />
+        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf_xacro/example_track.urdf.xacro'" />
 
         <rosparam>
             joint_state_controller:
@@ -48,7 +48,7 @@
     <group ns="example_track_simple">
 
         <!-- Load the URDF into the ROS Parameter Server -->
-        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf/example_track.urdf.xacro'" />
+        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf_xacro/example_track.urdf.xacro'" />
 
         <rosparam>
             joint_state_controller:
@@ -71,7 +71,7 @@
     <group ns="example_track_simple_wheels">
 
         <!-- Load the URDF into the ROS Parameter Server -->
-        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf/example_track.urdf.xacro'" />
+        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf_xacro/example_track.urdf.xacro'" />
 
         <rosparam>
             joint_state_controller:
