@@ -151,44 +151,79 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-## Gazebo model files generation
-
+# Function to generate a gazebo model in 2 steps
+#   1. generate .urdf file from .urdf.xacro file
+#   2. generate .sdf file from .urdf file
 function(generate_gazebo_model name)
-  # Directory for model files
-  file(
-    MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}
+  #########
+  # Step 1
+
+  # Add a command to gemerate the .urdf file from the .urdf.xacro file
+  # (this command also creates parent directories)
+  set(
+    urdf_file
+    ${CMAKE_CURRENT_SOURCE_DIR}/urdf/${name}_gazebo.urdf
+  )
+  xacro_add_xacro_file(
+    urdf_xacro/${name}_gazebo.urdf.xacro
+    ${urdf_file}
   )
 
-  # Generation of example_track/model.config
+  #########
+  # Step 2
+
+  set(
+    model_dir
+    ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}
+  )
+
+  # Add a command to generate model.config
+  set(
+    config_file
+    ${model_dir}/model.config
+  )
   string(
-    CONCAT ${name}_CONFIG_CONTENT
-    "<?xml version=\"1.0\" ?>\n"
-    "<model>\n"
-    "    <name>" ${name} "</name>\n"
-    "    <version>1.0</version>\n"
-    "    <sdf version=\"1.6\">model.sdf</sdf>\n"
-    "    <author>\n"
-    "        <name></name>\n"
-    "        <email></email>\n"
-    "    </author>\n"
-    "    <description></description>\n"
+    CONCAT config_content
+    "<?xml version=\"1.0\" ?>"
+    "<model>"
+    "    <name>" ${name} "</name>"
+    "    <version>1.0</version>"
+    "    <sdf version=\"1.6\">model.sdf</sdf>"
+    "    <author>"
+    "        <name></name>"
+    "        <email></email>"
+    "    </author>"
+    "    <description></description>"
     "</model>"
   )
-  file(
-    GENERATE 
-    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}/model.config
-    CONTENT ${${name}_CONFIG_CONTENT}
+  add_custom_command(
+    OUTPUT ${config_file}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${model_dir}
+    COMMAND ${CMAKE_COMMAND} -E echo ${config_content} > ${config_file}
+    COMMENT "Generating ${config_file}"
+    VERBATIM
   )
 
-  # Generation of example_track/model.sdf
-  add_custom_target(
-    ${name}_model ALL
-    COMMAND ${CATKIN_ENV} xacro --inorder urdf/${name}_gazebo.urdf.xacro -o model/${name}/model.urdf
-    COMMAND gz sdf -p model/${name}/model.urdf > model/${name}/model.sdf
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    SOURCES urdf/${name}_gazebo.urdf.xacro
+  # Add a command to generate model.sdf from the .urdf file
+  set(
+    sdf_file
+    ${model_dir}/model.sdf
   )
-endfunction(generate_gazebo_model)
+  add_custom_command(
+    OUTPUT ${sdf_file}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${model_dir}
+    COMMAND gz sdf -p ${urdf_file} > ${sdf_file}
+    DEPENDS ${urdf_file}
+    COMMENT "Generating ${sdf_file} from ${urdf_file}"
+    VERBATIM
+  )
+
+  # Add a target to actually run the commands
+  add_custom_target(
+    ${PROJECT_NAME}_${name}_model ALL
+    SOURCES ${config_file} ${sdf_file}
+  )
+endfunction()
 
 generate_gazebo_model(example_lugged_wheel)
 generate_gazebo_model(example_track)

@@ -2,6 +2,13 @@
 Changelog for package gazebo_continuous_track_example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.4 (2020-06-05)
+------------------
+* Add citation info to README
+* Add maintainer info to package.xml
+* Change directory names for .xacro (urdf/ -> urdf_xacro/)
+* Dependency-aware model generation
+
 0.0.3 (2019-09-26)
 ------------------
 * Add README

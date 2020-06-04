@@ -53,5 +53,6 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
-# Gazebo models
+# URDF & Gazebo models auto-generated from .xacro files
+urdf/
 model/
