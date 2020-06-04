@@ -20,7 +20,7 @@
     <group ns="example_lugged_wheel">
 
         <!-- Load the URDF into the ROS Parameter Server -->
-        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf/example_lugged_wheel.urdf.xacro'" />
+        <param name="robot_description" command="xacro --inorder '$(find gazebo_continuous_track_example)/urdf_xacro/example_lugged_wheel.urdf.xacro'" />
 
         <rosparam>
             joint_state_controller:
