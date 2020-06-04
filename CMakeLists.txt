@@ -177,30 +177,31 @@ function(generate_gazebo_model name)
     ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}
   )
 
-  # Generate model.config
-  # (this also creates parent directories)
+  # Add a command to generate model.config
   set(
     config_file
     ${model_dir}/model.config
   )
   string(
     CONCAT config_content
-    "<?xml version=\"1.0\" ?>\n"
-    "<model>\n"
-    "    <name>" ${name} "</name>\n"
-    "    <version>1.0</version>\n"
-    "    <sdf version=\"1.6\">model.sdf</sdf>\n"
-    "    <author>\n"
-    "        <name></name>\n"
-    "        <email></email>\n"
-    "    </author>\n"
-    "    <description></description>\n"
+    "<?xml version=\"1.0\" ?>"
+    "<model>"
+    "    <name>" ${name} "</name>"
+    "    <version>1.0</version>"
+    "    <sdf version=\"1.6\">model.sdf</sdf>"
+    "    <author>"
+    "        <name></name>"
+    "        <email></email>"
+    "    </author>"
+    "    <description></description>"
     "</model>"
   )
-  file(
-    GENERATE 
-    OUTPUT ${config_file} 
-    CONTENT ${config_content}
+  add_custom_command(
+    OUTPUT ${config_file}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${model_dir}
+    COMMAND ${CMAKE_COMMAND} -E echo ${config_content} > ${config_file}
+    COMMENT "Generating ${config_file}"
+    VERBATIM
   )
 
   # Add a command to generate model.sdf from the .urdf file
@@ -214,12 +215,13 @@ function(generate_gazebo_model name)
     COMMAND gz sdf -p ${urdf_file} > ${sdf_file}
     DEPENDS ${urdf_file}
     COMMENT "Generating ${sdf_file} from ${urdf_file}"
+    VERBATIM
   )
 
-  # Add a target to actually run the command
+  # Add a target to actually run the commands
   add_custom_target(
-    ${PROJECT_NAME}_${name}_sdf ALL
-    SOURCES ${sdf_file}
+    ${PROJECT_NAME}_${name}_model ALL
+    SOURCES ${config_file} ${sdf_file}
   )
 endfunction()
 
